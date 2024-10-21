@@ -1,4 +1,5 @@
 import re
+from pdf_generator import save_invoices_as_pdf
 
 def read_invoice_file(file_name):
     # Read the invoice data from the specified file.
@@ -45,7 +46,7 @@ def extract_invoices(data):
 
                 # Check if the invoice number is already present using the set
                 if invoice_number not in invoice_numbers_by_email[email]:
-                    email_invoices[email].append(invoice_details)  # Add the invoice details
+                    email_invoices[email].append((invoice_number, invoice_details))  # Add the invoice details
                     invoice_numbers_by_email[email].add(invoice_number)  # Add the invoice number to the set
 
     return email_invoices
@@ -53,12 +54,10 @@ def extract_invoices(data):
 # Usage example
 file_name = 'invoices_data.txt'  # Replace with your actual file name
 invoice_data = read_invoice_file(file_name)  # Read the file
-invoices = extract_invoices(invoice_data)  # Extract invoices
+extracted_invoices = extract_invoices(invoice_data)  # Extract invoices
 
-# Print the extracted invoices
-for email, invoice_list in invoices.items():
-    print(f"Email: {email}")
-    for invoice in invoice_list:
-        print("Invoice Data:")
-        print(invoice)
+# Generate PDFs from extracted invoices
+save_invoices_as_pdf(extracted_invoices)
+
+
 
