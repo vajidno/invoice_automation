@@ -1,0 +1,45 @@
+Email: john.doe@example.com
+Invoice Number: INV-1001
+Date: 2024-10-15
+products:
+  - Item: Widget A, Quantity: 2, Price: $15.00
+  - Item: Widget B, Quantity: 1, Price: $25.00
+Total: $55.00
+
+Customer Email: john.doe@example.com
+Invoice Number: INV-1002
+Date: 2024-10-15
+Items:
+  - Item: Widget A, Quantity: 2, Price: $15.00
+  - Item: Widget B, Quantity: 1, Price: $25.00
+Total: $57.00
+Customer Email: jane.smith@example.com
+Invoice Number: INV-1002
+Date: 2024-10-15
+Items:
+  - Item: Widget C, Quantity: 3, Price: $10.00
+  - Item: Widget D, Quantity: 2, Price: $20.00
+Total: $70.00
+
+Customer Email: alice.wonder@example.com
+Invoice Number: INV-1004
+Date: 2024-10-16
+Items:
+  - Item: Widget F, Quantity: 5, Price: $12.00
+  - Item: Widget G, Quantity: 1, Price: $45.00
+Total: $105.00
+
+Customer Email: bob.builder@example.com
+Invoice Number: INV-1005
+Date: 2024-10-17
+Items:
+  - Item: Widget H, Quantity: 4, Price: $18.00
+  - Item: Widget I, Quantity: 3, Price: $22.00
+Total: $114.00
+Customer Email: charlie.brown@example.com
+Invoice Number: INV-1007
+Date: 2024-10-18
+Items:
+  - Item: Widget L, Quantity: 2, Price: $35.00
+  - Item: Widget M, Quantity: 1, Price: $55.00
+Total: $125.00
