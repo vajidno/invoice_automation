@@ -1,4 +1,4 @@
-Email: john.doe@example.com
+Email: vajidnalakath737@gmail.com
 Invoice Number: INV-1001
 Date: 2024-10-15
 products:
@@ -7,7 +7,7 @@ products:
 Total: $55.00
 
 
-Customer Email: jane.smith@example.com
+Email: vajidnalakath737@gmail.com
 Invoice Number: INV-1002
 Date: 2024-10-15
 Items:

@@ -1,5 +1,6 @@
 import re
 from pdf_generator import save_invoices_as_pdf
+from mailing import send_email
 
 def read_invoice_file(file_name):
     # Read the invoice data from the specified file.
@@ -57,7 +58,17 @@ invoice_data = read_invoice_file(file_name)  # Read the file
 extracted_invoices = extract_invoices(invoice_data)  # Extract invoices
 
 # Generate PDFs from extracted invoices
-save_invoices_as_pdf(extracted_invoices)
+invoice_pdfs = save_invoices_as_pdf(extracted_invoices)
 
+# Iterate through the invoice_pdfs and call the mail function
+
+for email, invoices in invoice_pdfs.items():
+    # Need to get the username from the mail
+    receiver = email
+    attachment = invoices
+    subject = "Invoices"
+    body = "Hi user , Please check the attached invoices"
+
+    send_email(receiver, subject, body, attachment)
 
 

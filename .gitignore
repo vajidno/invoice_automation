@@ -1,0 +1,29 @@
+# Ignore Python virtual environments
+venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore environment configuration files
+.env
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore IDE settings (VSCode, PyCharm, etc.)
+.vscode/
+.idea/
+
+# Ignore node_modules if you have a frontend project
+node_modules/
+
+# Ignore build artifacts
+build/
+dist/
+
+
