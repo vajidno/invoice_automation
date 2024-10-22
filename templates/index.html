@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Upload System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .upload-progress {
+            display: none;
+            margin-top: 1rem;
+        }
+        .status-message {
+            margin-top: 1rem;
+            display: none;
+        }
+        body {
+            background-image: url('{{ url_for("static", filename="background.avif") }}');
+            background-size: cover;  
+            background-repeat: no-repeat; 
+            height: 100vh;  
+            margin: 0;  
+        }
+    </style>
+</head>
+<body s>
+    <div class="container upload-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg mt-5">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>Upload Your Invoices.txt</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="file" 
+                                       class="form-control" 
+                                       id="invoiceFile" 
+                                       name="file"
+                                       accept=".txt"
+                                       required>
+                            </div>
+                            <button type="submit" 
+                                    class="btn btn-primary w-100">
+                                Upload and Process
+                            </button>
+                        </form>
+
+                        <div class="upload-progress">
+                            <div class="progress">
+                                <div class="progress-bar" 
+                                     role="progressbar" 
+                                     style="width: 0%">
+                                    0%
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert status-message" role="alert"></div>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <small>Only .txt files are allowed. File size must not exceed 5MB.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('invoiceFile');
+            const file = fileInput.files[0];
+            const progressBar = document.querySelector('.progress-bar');
+            const progressDiv = document.querySelector('.upload-progress');
+            const statusMessage = document.querySelector('.status-message');
+
+            // Validate file type and size
+            if (!file.name.endsWith('.txt')) {
+                showStatus('Please upload a .txt file', 'danger');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                showStatus('File size exceeds 5MB limit', 'danger');
+                return;
+            }
+
+            // Show progress bar
+            progressDiv.style.display = 'block';
+            statusMessage.style.display = 'none';
+
+            // Create FormData
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                // Upload file
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus(`${result.message}`, 'success');
+                } else {
+                    showStatus('Error processing invoices: ' + result.error, 'danger');
+                }
+            } catch (error) {
+                showStatus('Error uploading file: ' + error.message, 'danger');
+            }
+
+            // Reset progress
+            progressDiv.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        function showStatus(message, type) {
+            const statusDiv = document.querySelector('.status-message');
+            statusDiv.textContent = message;
+            statusDiv.className = `alert status-message alert-${type}`;
+            statusDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

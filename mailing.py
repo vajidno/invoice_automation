@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os
 # Fixed sender email
-SENDER_EMAIL = "adityanaresh007@gmail.com"
+SENDER_EMAIL = "adityanaresh007@gmail.com" #Use the Sender email
 PASSWORD = "mcxx rsps sgfm giqy"  # Use App Password if 2FA is enabled
 
 def send_email(receiver_email, subject, body, attachments=None):

@@ -1,7 +1,7 @@
 from fpdf import FPDF
 
 
-def save_invoices_as_pdf(email_invoices):
+def save_invoices_as_pdf(email_invoices):  # Try to use templates 
     # Generates PDFs for each invoice
     email_pdf_mapping = {}
 
