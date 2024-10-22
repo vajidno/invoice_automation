@@ -47,12 +47,16 @@ def extract_invoices(data):
 
                 # Check if the invoice number is already present using the set
                 if invoice_number not in invoice_numbers_by_email[email]:
-                    date = re.search(r'Date:\s*(\S+)', invoice_details)
-                    items = re.search(r'Items:\s*(.+)', invoice_details)
-                    price = re.search(r'Price:\s*(\S+)', invoice_details)
-                    quantity = re.search(r'Quantity:\s*(\d+)', invoice_details)
+                    date = re.search(r'Date:\s*(\S+)', invoice_details).group(1)
+                    items = re.findall(r'Item:\s*(.+)', invoice_details)
+                    split_items = [item.split(",")[0] for item in items]
+                    print(split_items)
+                    price = re.findall(r'Price:\s*(\S+)', invoice_details)
+                    print("prices:", price)
+                    quantity = re.findall(r'Quantity:\s*(\d+)', invoice_details)
+                    print("quantities:", quantity)
                     name = email
-                    email_invoices[email].append((invoice_number, date,items,price,quantity,name))
+                    email_invoices[email].append((invoice_number, date,split_items,price,quantity,name))
                     invoice_numbers_by_email[email].add(invoice_number)  # Add the invoice number to the set
 
     return email_invoices
@@ -62,8 +66,10 @@ def extract_invoices(data):
 # invoice_data = read_invoice_file(file_name)  # Read the file
 # extracted_invoices = extract_invoices(invoice_data)  # Extract invoices
 
-# # Generate PDFs from extracted invoices
+# # # Generate PDFs from extracted invoices
 # invoice_pdfs = save_invoices_as_pdf(extracted_invoices)
+
+# print(invoice_pdfs)
 
 # # Iterate through the invoice_pdfs and call the mail function
 
