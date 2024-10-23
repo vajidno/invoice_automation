@@ -65,6 +65,6 @@ def _helper_invoice_as_pdf(invoice_number, date, split_items, price, quantity, e
     pdf.cell(0, 10, "Thank you for your business!", ln=True, align='C')
 
     # Save PDF File
-    pdf_file_name = f"invoice_{invoice_number}.pdf"
+    pdf_file_name = f"invoice_{invoice_number}_{email}.pdf"
     pdf.output(pdf_file_name)
     return pdf_file_name
